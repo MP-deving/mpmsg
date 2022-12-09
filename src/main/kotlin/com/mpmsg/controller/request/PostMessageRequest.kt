@@ -1,6 +1,7 @@
 package com.mpmsg.controller.request
 
 import com.fasterxml.jackson.annotation.JsonAlias
+import java.time.LocalDate
 import javax.validation.constraints.NotEmpty
 
 class PostMessageRequest (
@@ -12,5 +13,7 @@ class PostMessageRequest (
     var message: String,
 
     @JsonAlias("user_id")
-    var userId: Int
+    var userId: Int,
+
+    var expirationDate: LocalDate?
     )

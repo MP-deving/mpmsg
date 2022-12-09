@@ -22,8 +22,9 @@ fun PostMessageRequest.toMessageModel(user: UserModel): MessageModel {
     return MessageModel (
         title = this.title,
         message = this.message,
-        user = user
-            )
+        user = user,
+        expirationDate = this.expirationDate
+         )
 }
 //
 //fun PutMessageRequest.toMessageModel(previousValue: MessageModel): MessageModel {
@@ -40,8 +41,9 @@ fun PutMessageRequest.toMessageModel(previousValue: MessageModel): MessageModel 
         id = previousValue.id,
         title = this.title?: previousValue.title,
         message = (this.message?: previousValue.message),
-        user = previousValue.user
-            )
+        user = previousValue.user,
+        expirationDate = this.expirationDate
+    )
 }
 
 fun UserModel.toResponse(): UserResponse {
@@ -58,6 +60,8 @@ fun UserModel.toResponse(): UserResponse {
             id = this.id,
             title = this.title,
             message = this.message,
-            user = this.user
-                )
+            user = this.user,
+            created_at = this.createdAt,
+            expirationDate = this.expirationDate
+            )
     }

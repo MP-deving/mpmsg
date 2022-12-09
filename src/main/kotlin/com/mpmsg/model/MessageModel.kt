@@ -1,6 +1,9 @@
 package com.mpmsg.model
 
+import org.springframework.format.annotation.DateTimeFormat
 import org.w3c.dom.Text
+import java.time.LocalDate
+import java.time.LocalDateTime
 import javax.persistence.Column
 import javax.persistence.Entity
 import javax.persistence.GeneratedValue
@@ -28,6 +31,11 @@ data class MessageModel (
     @ManyToMany
     @JoinColumn(name = "user_id")
     @JoinTable(name = "user_message")
-    var user: UserModel? = null
+    var user: UserModel? = null,
 
+    @Column(name = "created_at")
+    val createdAt: LocalDateTime? = LocalDateTime.now(),
+
+    @Column
+    var expirationDate: LocalDate?
 )
