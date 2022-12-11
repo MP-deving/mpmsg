@@ -12,16 +12,12 @@ import java.time.LocalDate
 
 interface MessageRepository: JpaRepository<MessageModel, Int> {
     fun findByUser (user: UserModel): List<MessageModel>
-//    fun findAll(pageable: Pageable): Page<MessageModel>
     fun findByTitleContaining (title: String, pageable: Pageable): Page<MessageModel>
 
-//    @Query
-//        ("SELECT * FROM message WHERE expiration_date = :date")
-//    fun findByExpirationDate (@Param("date") date: LocalDate): List<MessageModel>
     @Query
     @Modifying
     @Bean
     ("DELETE FROM message WHERE expiration_date = :date")
-    fun deleteByExpirationDate(date: LocalDate) {
-    }
+    fun deleteByExpirationDate(date: LocalDate)
+
 }

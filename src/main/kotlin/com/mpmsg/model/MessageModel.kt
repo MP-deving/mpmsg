@@ -1,11 +1,12 @@
 package com.mpmsg.model
 
-import org.springframework.format.annotation.DateTimeFormat
-import org.w3c.dom.Text
+import com.mpmsg.enums.MessageTypes
 import java.time.LocalDate
 import java.time.LocalDateTime
 import javax.persistence.Column
 import javax.persistence.Entity
+import javax.persistence.EnumType
+import javax.persistence.Enumerated
 import javax.persistence.GeneratedValue
 import javax.persistence.GenerationType
 import javax.persistence.Id
@@ -28,10 +29,18 @@ data class MessageModel (
     val message: String,
 
     @ManyToOne
-    @ManyToMany
     @JoinColumn(name = "user_id")
-    @JoinTable(name = "user_message")
     var user: UserModel? = null,
+
+    @ManyToMany
+    @JoinTable(name = "receivers_id",
+        joinColumns = [JoinColumn(name = "message_id")],
+        inverseJoinColumns = [JoinColumn(name = "receiver_id")])
+    val receiver: List<UserModel>,
+
+    @Column
+    @Enumerated(EnumType.STRING)
+    val type: MessageTypes,
 
     @Column(name = "created_at")
     val createdAt: LocalDateTime? = LocalDateTime.now(),

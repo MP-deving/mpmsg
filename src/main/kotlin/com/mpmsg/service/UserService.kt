@@ -41,4 +41,8 @@ class UserService (
     fun emailAvailable(email: String): Boolean {
         return !userRepository.existsByEmail(email)
     }
+
+    fun findAllByIds(receiversIds: Set<Int>): List<UserModel> {
+        return userRepository.findAllById(receiversIds).toList()
+    }
 }

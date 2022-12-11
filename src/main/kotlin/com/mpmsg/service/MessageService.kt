@@ -1,18 +1,19 @@
 package com.mpmsg.service
 
 import com.mpmsg.model.MessageModel
+import com.mpmsg.model.UserModel
 import com.mpmsg.repository.MessageRepository
+import com.mpmsg.repository.UserRepository
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 import java.time.LocalDate
-import java.time.format.DateTimeFormatter
 
 @Service
 class MessageService (
     val messageRepository: MessageRepository,
-    val currrentDate: String = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))
+    val userRepository: UserRepository,
 ) {
 
     fun create(message: MessageModel) {
@@ -40,17 +41,13 @@ class MessageService (
         return messageRepository.findByTitleContaining(title, pageable)
     }
 
-//    fun findByExpirationDate (expiratedDate: LocalDate): List<MessageModel> {
-//        return messageRepository.findByExpirationDate(expiratedDate)
-//    }
-//
-//    fun findAllByDate (date: LocalDate): List<MessageModel> {
-//        return messageRepository.findByExpirationDate(date)
-//    }
-
     @Transactional
     fun deleteByExpirationDate(date: LocalDate = LocalDate.now()) {
         messageRepository.deleteByExpirationDate(date)
+    }
+
+    fun findAllReceivers(receiversIds: Set<Int>): List<UserModel> {
+        return userRepository.findAllById(receiversIds).toList()
     }
 
 }

@@ -1,6 +1,7 @@
 package com.mpmsg.controller.request
 
 import com.fasterxml.jackson.annotation.JsonAlias
+import com.mpmsg.enums.MessageTypes
 import java.time.LocalDate
 import javax.validation.constraints.NotEmpty
 
@@ -14,6 +15,11 @@ class PostMessageRequest (
 
     @JsonAlias("user_id")
     var userId: Int,
+
+    @JsonAlias("receiver_id")
+    val receiverId: Set<Int>,
+
+    val type: MessageTypes,
 
     var expirationDate: LocalDate?
     )

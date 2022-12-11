@@ -5,10 +5,8 @@ import com.mpmsg.controller.request.PutUserRequest
 import com.mpmsg.controller.response.UserResponse
 import com.mpmsg.extension.toResponse
 import com.mpmsg.extension.toUserModel
-import com.mpmsg.service.MessageService
 import com.mpmsg.service.UserService
 import org.springframework.http.HttpStatus
-import org.springframework.validation.annotation.Validated
 import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable

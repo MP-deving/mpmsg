@@ -7,7 +7,6 @@ import com.mpmsg.extension.toMessageModel
 import com.mpmsg.extension.toResponse
 import com.mpmsg.service.MessageService
 import com.mpmsg.service.UserService
-import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 import org.springframework.data.web.PageableDefault
@@ -34,7 +33,8 @@ class MessageController (
     @ResponseStatus(HttpStatus.CREATED)
     fun create (@RequestBody @Valid request: PostMessageRequest) {
         val user = userService.findById(request.userId)
-        messageService.create(request.toMessageModel(user))
+        val receiversIds = messageService.findAllReceivers(request.receiverId)
+        messageService.create(request.toMessageModel(user, receiversIds))
     }
 
     @GetMapping

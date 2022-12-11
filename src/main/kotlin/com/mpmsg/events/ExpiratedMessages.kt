@@ -9,8 +9,8 @@ import org.springframework.stereotype.Component
 class ExpiratedMessages (
     var messageService: MessageService,
         ) {
-    @Scheduled (fixedRate = 120000)
-//    @Scheduled (cron = "* * * 0/1 * *") // Apagar mensagens expiradas diariamente
+//    @Scheduled (fixedRate = 120000)
+    @Scheduled (cron = "0 0 4 * * ?") // Apagar mensagens expiradas diariamente às 04:00
     @Async
     fun deleteMessageByDate () {
         messageService.deleteByExpirationDate()
