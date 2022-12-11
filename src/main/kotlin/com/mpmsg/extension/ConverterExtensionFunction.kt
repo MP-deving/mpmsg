@@ -9,11 +9,6 @@ import com.mpmsg.controller.response.UserResponse
 import com.mpmsg.enums.UserStatus
 import com.mpmsg.model.MessageModel
 import com.mpmsg.model.UserModel
-import com.mpmsg.repository.MessageRepository
-import com.mpmsg.repository.UserRepository
-import com.mpmsg.service.MessageService
-import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.stereotype.Component
 
 fun PostUserRequest.toUserModel(): UserModel {
     return UserModel(name = this.name, email = this.email, status = UserStatus.ATIVO)
