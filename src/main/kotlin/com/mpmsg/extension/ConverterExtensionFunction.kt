@@ -11,11 +11,20 @@ import com.mpmsg.model.MessageModel
 import com.mpmsg.model.UserModel
 
 fun PostUserRequest.toUserModel(): UserModel {
-    return UserModel(name = this.name, email = this.email, status = UserStatus.ATIVO)
+    return UserModel(
+        name = this.name,
+        email = this.email,
+        status = UserStatus.ATIVO,
+        password = this.password)
 }
 
 fun PutUserRequest.toUserModel (previousValue: UserModel): UserModel {
-    return UserModel(id = previousValue.id, name = this.name, email = this.email, status = previousValue.status)
+    return UserModel(
+        id = previousValue.id,
+        name = this.name,
+        email = this.email,
+        status = previousValue.status,
+        password = previousValue.password)
 }
 
 fun PostMessageRequest.toMessageModel(user: UserModel, receiversIds: List<UserModel>): MessageModel {

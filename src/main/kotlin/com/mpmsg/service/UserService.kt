@@ -1,14 +1,17 @@
 package com.mpmsg.service
 
+import com.mpmsg.enums.Roles
 import com.mpmsg.enums.UserStatus
 import com.mpmsg.model.UserModel
 import com.mpmsg.repository.UserRepository
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.stereotype.Service
 
 @Service
 class UserService (
-    val userRepository: UserRepository,
-    val messageService: MessageService
+    private val userRepository: UserRepository,
+    private val messageService: MessageService,
+    private val bCrypt: BCryptPasswordEncoder
 ) {
 
     fun getAll(name: String?): List<UserModel> {
@@ -19,7 +22,11 @@ class UserService (
     }
 
     fun create(user: UserModel) {
-        userRepository.save(user)
+        val userCopy = user.copy(
+            roles = setOf(Roles.USUÁRIO),
+            password = bCrypt.encode(user.password)
+        )
+        userRepository.save(userCopy)
     }
 
     fun findById(id: Int): UserModel {

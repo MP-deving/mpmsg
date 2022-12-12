@@ -12,5 +12,8 @@ data class PostUserRequest (
 
     @field:Email
     @EmailAvailable
-    var email: String
+    var email: String,
+
+    @field:NotEmpty
+    val password: String
 )
