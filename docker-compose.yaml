@@ -1,0 +1,10 @@
+services:
+  mysql:
+    image: mysql
+    environment:
+     - MYSQL_ROOT_PASSWORD=123456
+     - MYSQL_DATABASE=mpmsg
+     - MYSQL_USER=mpmsg
+     - MYSQL_PASSWORD=root
+    ports:
+      - 3306:3306
