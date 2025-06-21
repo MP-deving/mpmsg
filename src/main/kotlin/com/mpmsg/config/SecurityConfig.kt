@@ -27,7 +27,8 @@ class SecurityConfig (
         ) {
 
     private val PUBLIC_POST_MATCHER = arrayOf(
-        "/user"
+        "/user",
+        "/user/getToken/{id}"
     )
 
     private val ADMIN_MATCHERS = arrayOf(
@@ -43,6 +44,7 @@ class SecurityConfig (
         http.cors().and().csrf().disable()
         http.authorizeRequests()
             .antMatchers(HttpMethod.POST,  *PUBLIC_POST_MATCHER).permitAll()
+            .antMatchers(HttpMethod.GET,  *PUBLIC_POST_MATCHER).permitAll()
             .antMatchers(*ADMIN_MATCHERS).hasAuthority(Roles.ADMIN.description)
             .anyRequest().authenticated()
         http.addFilter(AuthenticationFilter(configuration.authenticationManager, userRepository, jwtUtil))
