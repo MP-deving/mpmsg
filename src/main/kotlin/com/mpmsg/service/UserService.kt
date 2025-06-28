@@ -52,4 +52,13 @@ class UserService (
     fun findAllByIds(receiversIds: Set<Int>): List<UserModel> {
         return userRepository.findAllById(receiversIds).toList()
     }
+
+    fun authenticate(email: String, password: String): UserModel {
+        val user = userRepository.findByEmail(email)
+            ?: throw Exception("Usuário não encontrado")
+        if (!bCrypt.matches(password, user.password)) {
+            throw Exception("Senha incorreta")
+        }
+        return user
+    }
 }

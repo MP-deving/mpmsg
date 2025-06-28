@@ -28,6 +28,7 @@ class SecurityConfig (
 
     private val PUBLIC_POST_MATCHER = arrayOf(
         "/user",
+        "/user/login",
         "/user/getToken/{id}"
     )
 

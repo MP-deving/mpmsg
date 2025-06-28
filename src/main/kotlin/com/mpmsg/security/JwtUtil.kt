@@ -26,18 +26,22 @@ class JwtUtil {
     }
 
     fun isValidToken(token: String): Boolean {
-        val claims = getClaims(token)
-        if(claims.subject == null || claims.expiration == null || Date().after(claims.expiration)) {
-            return false
+        return try {
+            val claims = getClaims(token)
+            claims.subject != null && claims.expiration != null && Date().before(claims.expiration)
+        } catch (ex: Exception) {
+            false
         }
-        return true
     }
 
     private fun getClaims(token: String): Claims {
-        try {
-            return Jwts.parser().setSigningKey(secret!!.toByteArray()).parseClaimsJws(token).body
+        if (secret.isNullOrBlank()) {
+            throw IllegalStateException("JWT secret is not configured.")
+        }
+        return try {
+            Jwts.parser().setSigningKey(secret.toByteArray()).parseClaimsJws(token).body
         } catch (ex: Exception) {
-            throw (ex)
+            throw IllegalArgumentException("Invalid or expired JWT token.", ex)
         }
     }
 
